@@ -1,5 +1,7 @@
+from Graph import Graph
+
 def main():
 
-    print("hello world")
+    g = Graph()
 
 main()
