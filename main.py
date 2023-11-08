@@ -3,7 +3,7 @@ from BaseNode import BaseNode
 
 def main():
     g = Graph()
-    nodoPrimero= g.searchNODE(11,52)
+    nodoPrimero= g.searchNODE(12,50)
     if nodoPrimero is not None:
         print(nodoPrimero.name)
 main()
