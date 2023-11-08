@@ -72,3 +72,21 @@ class Graph:
     def dijkstra(self, tList, startNode, endNode):
         Dmatrix = DMatrix(self)
         Dmatrix.printDMatrix()
+    def searchNODE(self,cr,cll):
+        notAvailable = False
+        knownPlacesNames = ["Discoteca The Darkness", "Bar La Pasión", "Cervecería Mi Rolita",  "Café Sensación",
+        "Casa de Javier", "Casa de Andreina"]
+        knownPlaces = ['Cr14/Cll50', 'Cr11/Cll54', 'Cr12/Cll50', 'Cr10/Cll50', 'Cr14/Cll54', 'Cr13/Cll52']
+        name = f'Cr{cr}/Cll{cll}'
+        if name in knownPlaces:
+            name = knownPlacesNames[knownPlaces.index(f'Cr{cr}/Cll{cll}')]
+
+        for node in self.adjList:
+            if node.name == name:
+                return node
+            else:
+                notAvailable = True
+        if notAvailable is True:
+            return None
+    
+    
