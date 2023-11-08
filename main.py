@@ -3,8 +3,9 @@ from BaseNode import BaseNode
 
 def main():
     g = Graph()
-    # andy, escribes el id en string y te devuelve el nodo
-    g.findCouplePath(g.adjList[0])
+    
+    endNode = g.searchNODE(10,50)
+    g.findCouplePath(endNode)
 
 main()
 #     nodoPrimero= g.searchNODE(12,50)
