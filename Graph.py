@@ -1,14 +1,20 @@
 from AdjNode import AdjNode
 from BaseNode import BaseNode
+from DMatrix import DMatrix
 
 class Graph:
 
     def __init__(self):
         self.adjList = self.initGraph()
         self.times = {"javier": [5, 7, 10], "andreina": [7, 9, 12]} #Tiempos usados para dijkstra dependiendo de la persona
+        self.startNodes = {"javier": "Casa de Javier", "andreina":"Casa de Andreina"}
+        
+      
 
-    def dijkstra(self, tList):
-        pass
+
+    def dijkstra(self, tList, startNode, endNode):
+        Dmatrix = DMatrix(self)
+        Dmatrix.printDMatrix()
     
     #inicializar el grafo como lista de adyacencia, guardandola en adjList
     def initGraph(self):
@@ -58,3 +64,12 @@ class Graph:
             print(node.name)
             for a in node.adjacent:
                 print(f'{a.carrera}/{a.calle}: {a.crossTime}')
+
+    def findCouplePath(self, endNode):
+        javierStart = self.startNodes["javier"]
+        andreinaStart = self.startNodes["andreina"]
+
+        # ruta minima javier
+        self.dijkstra(self.times["javier"])
+
+        # ruta minima andreina
