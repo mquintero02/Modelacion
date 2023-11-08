@@ -7,14 +7,8 @@ class Graph:
     def __init__(self):
         self.adjList = self.initGraph()
         self.times = {"javier": [5, 7, 10], "andreina": [7, 9, 12]} #Tiempos usados para dijkstra dependiendo de la persona
-        self.startNodes = {"javier": "Casa de Javier", "andreina":"Casa de Andreina"}
-        
-      
-
-
-    def dijkstra(self, tList, startNode, endNode):
-        Dmatrix = DMatrix(self)
-        Dmatrix.printDMatrix()
+        self.startNodes = {"javier": self.adjList[28], "andreina":self.adjList[20]}
+    
     
     #inicializar el grafo como lista de adyacencia, guardandola en adjList
     def initGraph(self):
@@ -70,6 +64,11 @@ class Graph:
         andreinaStart = self.startNodes["andreina"]
 
         # ruta minima javier
-        self.dijkstra(self.times["javier"])
+        self.dijkstra(self.times["javier"], javierStart, endNode)
 
         # ruta minima andreina
+        self.dijkstra(self.times["andreina"], andreinaStart, endNode)
+
+    def dijkstra(self, tList, startNode, endNode):
+        Dmatrix = DMatrix(self)
+        Dmatrix.printDMatrix()
