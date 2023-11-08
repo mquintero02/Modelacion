@@ -8,3 +8,5 @@ class BaseNode:
 
     def insertAdj(self, adj):
         self.adjacent.append(adj)
+    
+    

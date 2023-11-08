@@ -58,3 +58,13 @@ class Graph:
             print(node.name)
             for a in node.adjacent:
                 print(f'{a.carrera}/{a.calle}: {a.crossTime}')
+
+    def searchNODE(self,cr,cll):
+        notAvailable = False
+        for node in self.adjList:
+            if node.name == f'Cr{cr}/Cll{cll}':
+                return node
+            else:
+                notAvailable = True
+        if notAvailable is True:
+            return None
