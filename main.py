@@ -3,10 +3,12 @@ from BaseNode import BaseNode
 
 def main():
     g = Graph()
-    
-    startNode = g.searchNODE(11,54)
-    g.findCouplePath(startNode)
-
+    startNode = g.searchNODE(12,50)
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
+    print(javierFinalList)
+    print(AndreinaFinalList)
+    print(javierWaits)
+    print(timeToWait)
 main()
 #     nodoPrimero= g.searchNODE(12,50)
 #     if nodoPrimero is not None:

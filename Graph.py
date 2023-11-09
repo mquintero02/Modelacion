@@ -70,13 +70,12 @@ class Graph:
         # ruta minima andreina esquivando a javier
         resultMatrixANotFree = self.dijkstra(self.times["andreina"], specialNode, resultMatrixJFree)
         resultMatrixANotFree.identifyPath(andreinaNode, specialNode, self)
-       
         # print("Javier Solo")
         # resultMatrixJFree.printBasic()
         # print("\nAndreina Esquiva javier")
         # resultMatrixANotFree.printBasic()
 
-        # ruta minima andreina 
+        # ruta minima andreina
         resultMatrixAFree = self.dijkstra(self.times["andreina"], specialNode, 0)
         resultMatrixAFree.identifyPath(andreinaNode, specialNode, self)
         # ruta minima javier esquivando a andreina
@@ -90,11 +89,12 @@ class Graph:
 
         JavierDMatrix, AndreinaDMatrix, timeToWait, javierWaits = self.chooseFinalPath(resultMatrixJFree,resultMatrixANotFree,resultMatrixAFree,resultMatrixJNotFree)
         print("\nJavier")
-        JavierDMatrix.printBasic()
+        javierFinalList = JavierDMatrix.printBasic()
         print("\n Andreina")
-        AndreinaDMatrix.printBasic()
+        AndreinaFinalList = AndreinaDMatrix.printBasic()
         print(f'\n espera de {timeToWait} minutos')
         print(f'javier espera: {javierWaits}')
+        return javierFinalList, AndreinaFinalList, javierWaits, timeToWait
 
     def dijkstra(self, tList, startNode, matrixToAvoid):
         currentNode = startNode

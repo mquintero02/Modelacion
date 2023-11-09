@@ -28,9 +28,22 @@ class DMatrix:
         for i in range(len(self.nodesIds)):
             print(f'Nodo: {self.nodesIds[i]} visitado: {self.visitedList[i]} costoDesdeOrigen: {self.costFromOrigin[i]} predecesor: {self.predecesors[i]}, esCamino: {self.partOfPath[i]}')
     def printBasic(self):
+        listForGraphOrdered =[]
+        finalList =[]
         for i in range(len(self.nodesIds)):
-            print(f'Nodo: {self.nodesIds[i]} costoDesdeOrigen: {self.costFromOrigin[i]} predecesor: {self.predecesors[i]}')
-
+            if  self.partOfPath[i] == True:
+                print(f'Nodo: {self.nodesIds[i]} costoDesdeOrigen: {self.costFromOrigin[i]} Sucesor: {self.predecesors[i]}')
+                dictionaryForGraphOrdered = {"NodoOrigen": self.nodesIds[i], "NodoDestino": self.predecesors[i], "costo":self.costFromOrigin[i]}
+                listForGraphOrdered.append(dictionaryForGraphOrdered)
+        listForGraphOrdered.sort(key=lambda x: x['costo'])
+        for j in range(len(listForGraphOrdered)):
+            newCostDude = listForGraphOrdered[j].get("costo")
+            if listForGraphOrdered[j].get("costo") != 0:
+                newCostDude = listForGraphOrdered[j].get("costo") - listForGraphOrdered[j-1].get("costo")
+            dictionaryForFinalGraph = {"NodoOrigen": listForGraphOrdered[j].get("NodoOrigen"), "NodoDestino": listForGraphOrdered[j].get("NodoDestino"), "costo":newCostDude}
+            finalList.append(dictionaryForFinalGraph)
+        finalList.reverse()
+        return finalList
 
     def nodesUnvisitedExist(self):
         nodeUnvisitedExist = False
