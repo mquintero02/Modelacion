@@ -4,8 +4,8 @@ from BaseNode import BaseNode
 def main():
     g = Graph()
     
-    endNode = g.searchNODE(10,50)
-    g.findCouplePath(endNode)
+    startNode = g.searchNODE(11,54)
+    g.findCouplePath(startNode)
 
 main()
 #     nodoPrimero= g.searchNODE(12,50)

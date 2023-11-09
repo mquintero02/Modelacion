@@ -7,7 +7,7 @@ class Graph:
     def __init__(self):
         self.adjList = self.initGraph()
         self.times = {"javier": [5, 7, 10], "andreina": [7, 9, 12]} #Tiempos usados para dijkstra dependiendo de la persona
-        self.startNodes = {"javier": self.searchNODE(14,54), "andreina":self.searchNODE(13,52)}
+        self.startNodes = {"javier": self.searchNODE(14,54), "andreina":self.searchNODE(13,52), "bar":self.searchNODE(11,54)}
     
     
     #inicializar el grafo como lista de adyacencia, guardandola en adjList
@@ -59,17 +59,44 @@ class Graph:
             for a in node.adjacent:
                 print(f'{a.carrera}/{a.calle}: {a.crossTime}')
 
-    def findCouplePath(self, endNode):
-        javierStart = self.startNodes["javier"]
-        andreinaStart = self.startNodes["andreina"]
+    def findCouplePath(self, specialNode):
+        javierNode = self.startNodes["javier"]
+        andreinaNode = self.startNodes["andreina"]
 
         # ruta minima javier
-        resultMatrixJ = self.dijkstra(self.times["javier"], javierStart, endNode)
-        resultMatrixJ.printDMatrix()
-        # ruta minima andreina
-        resultMatrixA = self.dijkstra(self.times["andreina"], andreinaStart, endNode)
+        resultMatrixJFree = self.dijkstra(self.times["javier"], specialNode, 0)
+        resultMatrixJFree.identifyPath(javierNode, specialNode, self)
+        # resultMatrixJFree.printDMatrix()
+        # ruta minima andreina esquivando a javier
+        resultMatrixANotFree = self.dijkstra(self.times["andreina"], specialNode, resultMatrixJFree)
+        resultMatrixANotFree.identifyPath(andreinaNode, specialNode, self)
+       
+        # print("Javier Solo")
+        # resultMatrixJFree.printBasic()
+        # print("\nAndreina Esquiva javier")
+        # resultMatrixANotFree.printBasic()
 
-    def dijkstra(self, tList, startNode, endNode):
+        # ruta minima andreina 
+        resultMatrixAFree = self.dijkstra(self.times["andreina"], specialNode, 0)
+        resultMatrixAFree.identifyPath(andreinaNode, specialNode, self)
+        # ruta minima javier esquivando a andreina
+        resultMatrixJNotFree = self.dijkstra(self.times["javier"], specialNode, resultMatrixAFree)
+        resultMatrixJNotFree.identifyPath(javierNode, specialNode, self)
+
+        # print("\nAndreina solo")
+        # resultMatrixAFree.printBasic()
+        # print("\nJavier esquiva Andreina")
+        # resultMatrixJNotFree.printBasic()
+
+        JavierDMatrix, AndreinaDMatrix, timeToWait, javierWaits = self.chooseFinalPath(resultMatrixJFree,resultMatrixANotFree,resultMatrixAFree,resultMatrixJNotFree)
+        print("\nJavier")
+        JavierDMatrix.printBasic()
+        print("\n Andreina")
+        AndreinaDMatrix.printBasic()
+        print(f'\n espera de {timeToWait} minutos')
+        print(f'javier espera: {javierWaits}')
+
+    def dijkstra(self, tList, startNode, matrixToAvoid):
         currentNode = startNode
         Dmatrix = DMatrix(self, startNode)
         while Dmatrix.nodesUnvisitedExist():
@@ -80,8 +107,15 @@ class Graph:
             for node in nodesToUpdate:
                 index = self.searchNodeIndex(node.carrera, node.calle)
                 newCost = Dmatrix.costFromOrigin[currentNodeIndex]+tList[node.crossTime]
-                # si el nodo fue visiado y su nuevo camino es menos costoso que el existente, actualizalo
-                if (not Dmatrix.visitedList[index]) and (newCost < Dmatrix.costFromOrigin[index]):
+
+                if matrixToAvoid == 0:
+                    canGoPath = True
+                else:
+                    #puede ir si el anterior no pasa por ahi
+                    # print(f'pred: {matrixToAvoid.predecesors[index]}, current {currentNode.name}')
+                    canGoPath = not ((matrixToAvoid.predecesors[index] == currentNode.name) and (matrixToAvoid.partOfPath[index]))
+                # si el nodo fue visitado y su nuevo camino es menos costoso que el existente, actualizalo
+                if (not Dmatrix.visitedList[index]) and (newCost < Dmatrix.costFromOrigin[index]) and (canGoPath):
                     Dmatrix.costFromOrigin[index] = newCost
                     Dmatrix.predecesors[index] = currentNode.name
             #Marco como visitado el nodo actual
@@ -143,4 +177,31 @@ class Graph:
         if notAvailable is True:
             return None
     
+
+    def searchNodeByName(self,nodeName):
+        notAvailable = False
+        name = nodeName
+
+        for index, node in enumerate(self.adjList):
+            if node.name == name:
+                return node
+            else:
+                notAvailable = True
+        if notAvailable is True:
+            return None
     
+    def chooseFinalPath(self, Jfree, AnotFree, Afree, JNotFree):
+        javierNode = self.startNodes["javier"]
+        andreinaNode = self.startNodes["andreina"]
+        costs1 = [Jfree.costFromOrigin[self.searchNodeIndex(javierNode.carrera, javierNode.calle)], AnotFree.costFromOrigin[self.searchNodeIndex(andreinaNode.carrera, andreinaNode.calle)]]
+        costs2 = [JNotFree.costFromOrigin[self.searchNodeIndex(javierNode.carrera, javierNode.calle)], Afree.costFromOrigin[self.searchNodeIndex(andreinaNode.carrera, andreinaNode.calle)]]
+
+        if (max(costs1) < max(costs2)):
+            timeToWait = abs(costs1[0]-costs1[1])
+            javierWaits = costs1[0] < costs1[1]
+            return Jfree, AnotFree, timeToWait, javierWaits
+        else:
+            timeToWait = abs(costs2[0]-costs2[1])
+            javierWaits = costs2[0] < costs2[1]
+            return JNotFree, Afree, timeToWait, javierWaits
+
