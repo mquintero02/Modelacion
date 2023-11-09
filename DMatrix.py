@@ -41,7 +41,8 @@ class DMatrix:
             if listForGraphOrdered[j].get("costo") != 0:
                 newCostDude = listForGraphOrdered[j].get("costo") - listForGraphOrdered[j-1].get("costo")
             dictionaryForFinalGraph = {"NodoOrigen": listForGraphOrdered[j].get("NodoOrigen"), "NodoDestino": listForGraphOrdered[j].get("NodoDestino"), "costo":newCostDude}
-            finalList.append(dictionaryForFinalGraph)
+            if dictionaryForFinalGraph.get("NodoDestino") != None:
+                finalList.append(dictionaryForFinalGraph)
         finalList.reverse()
         return finalList
 
