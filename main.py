@@ -48,7 +48,7 @@ def main():
         pygame.display.update()
     
 def gui_init():
-    screen = pygame.display.set_mode((770, 700))
+    screen = pygame.display.set_mode((780, 700))
     screen.fill((0, 0, 0))
 
     javier = pygame.image.load('./sprites/javier1.png').convert()
