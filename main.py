@@ -6,10 +6,10 @@ from pygame.locals import *
 
 def main():
     g = Graph()
-    #startNode = g.searchNODE(12,50)
-    #javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
-    # print(javierFinalList)
-    # print(AndreinaFinalList)
+    startNode = g.searchNODE(12,50)
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
+    print(javierFinalList)
+    print(AndreinaFinalList)
     # print(javierWaits)
     # print(timeToWait)
 
