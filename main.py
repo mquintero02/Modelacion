@@ -1,5 +1,6 @@
 from Graph import Graph
 from BaseNode import BaseNode
+from pygame import mixer
 
 import pygame, sys
 from pygame.locals import *
@@ -15,8 +16,13 @@ def main():
 
     #pruebas pygame
     pygame.init()
+    mixer.init()
+    mixer.music.load('./music/Faint.wav')
+    mixer.music.set_volume(0.5)
+    mixer.music.play(-1)
 
-    screen, javier, andreina, places, roads = gui_init()
+
+    screen, javier, andreina, places, roads, backgrd = gui_init()
 
     javPos = [128, 128]
     andPos = [256, 384]
@@ -27,6 +33,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+        
+        for m in backgrd:
+            screen.blit(m[0], (m[1], m[2]))
 
         for p in places:
             screen.blit(p[0], (p[1], p[2]))
@@ -39,7 +48,7 @@ def main():
         pygame.display.update()
     
 def gui_init():
-    screen = pygame.display.set_mode((1512, 952))
+    screen = pygame.display.set_mode((770, 700))
     screen.fill((0, 0, 0))
 
     javier = pygame.image.load('./sprites/javier1.png').convert()
@@ -93,6 +102,10 @@ def gui_init():
     cafe.set_colorkey((0, 0, 0))
     cafe = pygame.transform.scale(cafe, (64, 64))
 
+    background = pygame.image.load('./sprites/fondito.png').convert()
+    background.set_colorkey((0, 0, 0))
+    background = pygame.transform.scale(background, (64, 64))
+
     brokenCarreras = [12, 13, 14]
     commercialCalle = 51
     knownPlaces = [disco, bar, cerveceria,  cafe, javierHouse, andreinaHouse]
@@ -100,20 +113,18 @@ def gui_init():
 
     roads = []
     placesLocations = []
+    backgrd=[]
 
     for cr in range(10, 16):
         for cll in range(50, 56):
-
             x = (15-cr) * 128
 
             y = (55-cll) * 128
-
             name = f'Cr{cr}/Cll{cll}'
-
+            backgrd.append((background,x+64,y+64))
             if name in knownPlacesNames:
                 block = knownPlaces[knownPlacesNames.index(f'Cr{cr}/Cll{cll}')]
                 placesLocations.append((block, x+64, y-64))
-
             roads.append((inter, x, y))
             
             if cr not in brokenCarreras:
@@ -126,7 +137,7 @@ def gui_init():
             else:
                 roads.append((cRoad, x+64, y))
 
-    return screen, javier, andreina, placesLocations, roads
+    return screen, javier, andreina, placesLocations, roads, backgrd
 
 main()
 #     nodoPrimero= g.searchNODE(12,50)
