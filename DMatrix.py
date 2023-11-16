@@ -74,8 +74,8 @@ class DMatrix:
         if len(listForGraphOrdered) != 0:
             for j in range(len(listForGraphOrdered)):
                 newCostDude = listForGraphOrdered[j].get("costo")
-                if listForGraphOrdered[j].get("costo") != 0:
-                    newCostDude = listForGraphOrdered[j].get("costo") - listForGraphOrdered[j-1].get("costo")
+                if j > 0:
+                    newCostDude -= listForGraphOrdered[j-1].get("costo")
                 dictionaryForFinalGraph = {"NodoOrigen": listForGraphOrdered[j].get("NodoOrigen"), "NodoDestino": listForGraphOrdered[j].get("NodoDestino"), "costo":newCostDude, "direction":listForGraphOrdered[j].get("direction")}
                 if dictionaryForFinalGraph.get("NodoDestino") != None:
                     finalList.append(dictionaryForFinalGraph)
