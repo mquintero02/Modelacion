@@ -8,7 +8,8 @@ from pygame.locals import *
 def main():
     # print(javierWaits)
     # print(timeToWait)
-    
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait= startScreen()
+    #ESTO ES PARA HACER LA INTERFAZ Y ACTUALIZAR LAS POSICIONES
 
     #pruebas pygame
     pygame.init()
@@ -44,6 +45,7 @@ def main():
         pygame.display.update()
 
 def startScreen():
+    g = Graph()
 
     pygame.init()
     screen, javier, andreina, places, roads, backgrd = gui_init()
@@ -246,7 +248,7 @@ def gui_init():
                 roads.append((cRoad, x+64, y))
 
     return screen, javier, andreina, placesLocations, roads, backgrd
-startScreen()
+
 main()
 #     nodoPrimero= g.searchNODE(12,50)
 #     if nodoPrimero is not None:
