@@ -29,58 +29,58 @@ class DMatrix:
             print(f'Nodo: {self.nodesIds[i]} visitado: {self.visitedList[i]} costoDesdeOrigen: {self.costFromOrigin[i]} predecesor: {self.predecesors[i]}, esCamino: {self.partOfPath[i]}')
    
     def printBasic(self):
-        
         listForGraphOrdered =[]
         finalList =[]
         for i in range(len(self.nodesIds)):
             firstString=  self.nodesIds[i]
             secondString=  self.predecesors[i]
-            knownPlacesNames = ["Discoteca The Darkness", "Bar La Pasión", "Cervecería Mi Rolita",  "Café Sensación",
-            "Casa de Javier", "Casa de Andreina"]
-            knownPlaces = ['Cr14/Cll50', 'Cr11/Cll54', 'Cr12/Cll50', 'Cr10/Cll50', 'Cr14/Cll54', 'Cr13/Cll52']
-            if firstString in knownPlacesNames:
-                firstString = knownPlaces[knownPlacesNames.index(firstString)]
-            if secondString in knownPlacesNames:
-                secondString= knownPlaces[knownPlacesNames.index(secondString)]
-            firstString=  firstString.split('/')
             if secondString is not None:
-                secondString=  secondString.split('/')
-                
-            for firstPiece in firstString:
-                if "Cr" in firstPiece:
-                    firstCr= int(firstPiece.replace("Cr", ""))
-                else:
-                    firstCll=int(firstPiece.replace("Cll", ""))
-            if secondString is not None:
-                for secondPiece in secondString:
-                    if "Cr" in secondPiece:
-                        secondCr= int(secondPiece.replace("Cr", ""))
+                knownPlacesNames = ["Discoteca The Darkness", "Bar La Pasión", "Cervecería Mi Rolita", "Café Sensación",
+                "Casa de Javier", "Casa de Andreina"]
+                knownPlaces = ['Cr14/Cll50', 'Cr11/Cll54', 'Cr12/Cll50', 'Cr10/Cll50', 'Cr14/Cll54', 'Cr13/Cll52']
+                if firstString in knownPlacesNames:
+                    firstString = knownPlaces[knownPlacesNames.index(firstString)]
+                if secondString in knownPlacesNames:
+                    secondString= knownPlaces[knownPlacesNames.index(secondString)]
+                firstString=  firstString.split('/')
+                if secondString is not None:
+                    secondString=  secondString.split('/')
+                for firstPiece in firstString:
+                    if "Cr" in firstPiece:
+                        firstCr= int(firstPiece.replace("Cr", ""))
                     else:
-                        secondCll=int(secondPiece.replace("Cll", ""))
-                direction="none"
-                if firstCr < secondCr:
-                    direction="left"
-                elif firstCr > secondCr:
-                    direction="right"
-                elif firstCll < secondCll:
-                    direction="up"
-                elif firstCll > secondCll:
-                    direction="down"
+                        firstCll=int(firstPiece.replace("Cll", ""))
+                if secondString is not None:
+                    for secondPiece in secondString:
+                        if "Cr" in secondPiece:
+                            secondCr= int(secondPiece.replace("Cr", ""))
+                        else:
+                            secondCll=int(secondPiece.replace("Cll", ""))
+                    direction="none"
+                    if firstCr < secondCr:
+                        direction="left"
+                    elif firstCr > secondCr:
+                        direction="right"
+                    elif firstCll < secondCll:
+                        direction="up"
+                    elif firstCll > secondCll:
+                        direction="down"
 
-            if  self.partOfPath[i] == True:
-                print(f'Nodo: {self.nodesIds[i]} costoDesdeOrigen: {self.costFromOrigin[i]} Sucesor: {self.predecesors[i]}')
-                dictionaryForGraphOrdered = {"NodoOrigen": self.nodesIds[i], "NodoDestino": self.predecesors[i], "costo":self.costFromOrigin[i], "direction":direction}
-                listForGraphOrdered.append(dictionaryForGraphOrdered)
+                if  self.partOfPath[i] == True:
+                    print(f'Nodo: {self.nodesIds[i]} costoDesdeOrigen: {self.costFromOrigin[i]} Sucesor: {self.predecesors[i]}')
+                    dictionaryForGraphOrdered = {"NodoOrigen": self.nodesIds[i], "NodoDestino": self.predecesors[i], "costo":self.costFromOrigin[i], "direction":direction}
+                    listForGraphOrdered.append(dictionaryForGraphOrdered)
         listForGraphOrdered.sort(key=lambda x: x['costo'])
-        for j in range(len(listForGraphOrdered)):
-            newCostDude = listForGraphOrdered[j].get("costo")
-            if listForGraphOrdered[j].get("costo") != 0:
-                newCostDude = listForGraphOrdered[j].get("costo") - listForGraphOrdered[j-1].get("costo")
-            dictionaryForFinalGraph = {"NodoOrigen": listForGraphOrdered[j].get("NodoOrigen"), "NodoDestino": listForGraphOrdered[j].get("NodoDestino"), "costo":newCostDude, "direction":listForGraphOrdered[j].get("direction")}
-            if dictionaryForFinalGraph.get("NodoDestino") != None:
-                finalList.append(dictionaryForFinalGraph)
-        finalList.reverse()
-        return finalList
+        if len(listForGraphOrdered) != 0:
+            for j in range(len(listForGraphOrdered)):
+                newCostDude = listForGraphOrdered[j].get("costo")
+                if listForGraphOrdered[j].get("costo") != 0:
+                    newCostDude = listForGraphOrdered[j].get("costo") - listForGraphOrdered[j-1].get("costo")
+                dictionaryForFinalGraph = {"NodoOrigen": listForGraphOrdered[j].get("NodoOrigen"), "NodoDestino": listForGraphOrdered[j].get("NodoDestino"), "costo":newCostDude, "direction":listForGraphOrdered[j].get("direction")}
+                if dictionaryForFinalGraph.get("NodoDestino") != None:
+                    finalList.append(dictionaryForFinalGraph)
+            finalList.reverse()
+            return finalList
 
     def nodesUnvisitedExist(self):
         nodeUnvisitedExist = False
