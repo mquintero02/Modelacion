@@ -44,11 +44,6 @@ def main():
         pygame.display.update()
 
 def startScreen():
-    g = Graph()
-    startNode = g.searchNODE(10,50)
-    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
-    print(javierFinalList)
-    print(AndreinaFinalList)
 
     pygame.init()
     screen, javier, andreina, places, roads, backgrd = gui_init()
