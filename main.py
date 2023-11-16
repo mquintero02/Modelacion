@@ -48,7 +48,11 @@ def startScreen():
     g = Graph()
 
     pygame.init()
+    
     screen, javier, andreina, places, roads, backgrd = gui_init()
+    background_surface = pygame.Surface(screen.get_size())
+    background_surface.fill((38, 18, 79))
+    screen.blit(background_surface, (0, 0))
 
     font = pygame.font.Font(None, 64)
     text = font.render('¡Bienvenido a la simulación!', True, (255, 255, 255))
@@ -102,10 +106,12 @@ def startScreen():
     button_text4 = text2_font.render('Iniciar', True, (255, 255, 255))
     text_rect_button4 = button_text4.get_rect(center=button3.center)
 
+
     pygame.draw.rect(screen, gray_color, gray_rect)
     pygame.draw.rect(screen, gray_color, gray_rect2)
     pygame.draw.rect(screen, gray_color, gray_rect3)
     pygame.draw.rect(screen, gray_color, gray_rect4)
+
     screen.blit(text, text_rect)
     screen.blit(text2, text_rect2)
     screen.blit(text3, text_rect3)
@@ -157,6 +163,7 @@ def startScreen():
                     return javierFinalList, AndreinaFinalList, javierWaits, timeToWait
                 waiting_for_click = False
         pygame.time.delay(10)
+
 def gui_init():
     screen = pygame.display.set_mode((780, 700))
     screen.fill((0, 0, 0))
