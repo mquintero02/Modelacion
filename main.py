@@ -146,7 +146,7 @@ def startScreen():
     simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait)
 
 def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait):
-    screen, javier, andreina, places, roads, backgrd = gui_init()
+    screen, javier, andreina, places, roads, backgrd, javier2, javier3,andreina2,andreina3,secondStep= gui_init()
 
     javPos = [128, 128]
     andPos = [256, 384]
@@ -224,8 +224,22 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             elif andreinaStepsLeft == 0 and andreinaCurrentPath == len(AndreinaFinalList)-1:
                 andreinaMoving = False
         
-        screen.blit(javier, (javPos[0], javPos[1]))
-        screen.blit(andreina, (andPos[0], andPos[1]))
+        if javierMoving == True or andreinaMoving == True:
+            if secondStep == True:
+                screen.blit(javier, (javPos[0], javPos[1]))
+            else:
+                screen.blit(javier2, (javPos[0], javPos[1]))
+        else:
+            screen.blit(javier3, (javPos[0], javPos[1]))
+        if andreinaMoving == True or javierMoving == True:
+            if secondStep == True:
+                screen.blit(andreina2, (andPos[0], andPos[1]))
+                secondStep=False
+            else:
+                screen.blit(andreina3, (andPos[0], andPos[1]))
+                secondStep=True
+        else:
+            screen.blit(andreina, (andPos[0], andPos[1]))
         pygame.display.update()
         clock += 1
         pygame.time.delay(500)
@@ -233,14 +247,31 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
 def gui_init():
     screen = pygame.display.set_mode((960, 960))
     screen.fill((0, 0, 0))
+    secondStep=True
 
     javier = pygame.image.load('./sprites/javier1.png').convert()
     javier.set_colorkey((0, 0, 0))
     javier = pygame.transform.scale(javier, (64, 64))
 
+    javier2 = pygame.image.load('./sprites/javier2.png').convert()
+    javier2.set_colorkey((0, 0, 0))
+    javier2 = pygame.transform.scale(javier2, (64, 64))
+
+    javier3 = pygame.image.load('./sprites/javier3.png').convert()
+    javier3.set_colorkey((0, 0, 0))
+    javier3 = pygame.transform.scale(javier3, (64, 64))
+
     andreina = pygame.image.load('./sprites/andreina1.png').convert()
     andreina.set_colorkey((0, 0, 0))
     andreina = pygame.transform.scale(andreina, (64, 64))
+
+    andreina2 = pygame.image.load('./sprites/andreina2.png').convert()
+    andreina2.set_colorkey((0, 0, 0))
+    andreina2 = pygame.transform.scale(andreina2, (64, 64))
+
+    andreina3 = pygame.image.load('./sprites/andreina3.png').convert()
+    andreina3.set_colorkey((0, 0, 0))
+    andreina3 = pygame.transform.scale(andreina3, (64, 64))
 
     roadV = pygame.image.load('./sprites/subida.png').convert()
     roadV.set_colorkey((0, 0, 0))
@@ -320,7 +351,7 @@ def gui_init():
             else:
                 roads.append((cRoad, x+64, y))
 
-    return screen, javier, andreina, placesLocations, roads, backgrd
+    return screen, javier, andreina, placesLocations, roads, backgrd, javier2,javier3,andreina2,andreina3,secondStep
 
 main()
 #     nodoPrimero= g.searchNODE(12,50)
