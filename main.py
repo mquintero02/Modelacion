@@ -151,6 +151,8 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
     javPos = [128, 128]
     andPos = [256, 384]
 
+    newClock=pygame.time.Clock()
+
     clock = 0
 
     javierCurrentPath = 0
@@ -176,7 +178,12 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-        
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouse_pos = event.pos
+                if button.collidepoint(mouse_pos):
+                        startScreen()
+                        running = False
+                        
         for m in backgrd:
             screen.blit(m[0], (m[1], m[2]))
 
@@ -242,7 +249,17 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             screen.blit(andreina, (andPos[0]+45, andPos[1]-40))
         pygame.display.update()
         clock += 1
-        pygame.time.delay(500)
+        newClock.tick(5)
+
+        button = pygame.Rect(700, 850, 200, 60)
+        pygame.draw.rect(screen, (0, 128, 255), button)
+
+        text2_font = pygame.font.Font(None, 44)
+        button_text = text2_font.render('Reiniciar', True, (255, 255, 255))
+        text_rect_button = button_text.get_rect(center=button.center)
+        screen.blit(button_text, text_rect_button)
+
+
 
 def gui_init():
     screen = pygame.display.set_mode((960, 960))
