@@ -230,7 +230,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             else:
                 screen.blit(javier2, (javPos[0], javPos[1]))
         else:
-            screen.blit(javier3, (javPos[0], javPos[1]))
+            screen.blit(javier3, (javPos[0]+75, javPos[1]-35))
         if andreinaMoving == True or javierMoving == True:
             if secondStep == True:
                 screen.blit(andreina2, (andPos[0], andPos[1]))
@@ -239,7 +239,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
                 screen.blit(andreina3, (andPos[0], andPos[1]))
                 secondStep=True
         else:
-            screen.blit(andreina, (andPos[0], andPos[1]))
+            screen.blit(andreina, (andPos[0]+45, andPos[1]-40))
         pygame.display.update()
         clock += 1
         pygame.time.delay(500)
@@ -252,6 +252,7 @@ def gui_init():
     javier = pygame.image.load('./sprites/javier1.png').convert()
     javier.set_colorkey((0, 0, 0))
     javier = pygame.transform.scale(javier, (64, 64))
+    
 
     javier2 = pygame.image.load('./sprites/javier2.png').convert()
     javier2.set_colorkey((0, 0, 0))
