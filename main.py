@@ -6,50 +6,39 @@ import pygame, sys
 from pygame.locals import *
 
 def main():
+    pygame.init()
     # print(javierWaits)
     # print(timeToWait)
-    javierFinalList, AndreinaFinalList, javierWaits, timeToWait= startScreen()
-    #ESTO ES PARA HACER LA INTERFAZ Y ACTUALIZAR LAS POSICIONES
-
-    #pruebas pygame
-    pygame.init()
     mixer.init()
     mixer.music.load('./music/Faint.wav')
     mixer.music.set_volume(0.5)
     mixer.music.play(-1)
 
-
-    screen, javier, andreina, places, roads, backgrd = gui_init()
-
-    javPos = [128, 128]
-    andPos = [256, 384]
-
-    running = True
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        
-        for m in backgrd:
-            screen.blit(m[0], (m[1], m[2]))
-
-        for p in places:
-            screen.blit(p[0], (p[1], p[2]))
-
-        for r in roads:
-            screen.blit(r[0], (r[1], r[2]))
-        
-        screen.blit(javier, (javPos[0], javPos[1]))
-        screen.blit(andreina, (andPos[0], andPos[1]))
-        pygame.display.update()
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait= startScreen()
+    #ESTO ES PARA HACER LA INTERFAZ Y ACTUALIZAR LAS POSICIONES
 
 def startScreen():
     g = Graph()
 
-    pygame.init()
-    
-    screen, javier, andreina, places, roads, backgrd = gui_init()
+    screen = pygame.display.set_mode((780, 700))
+    screen.fill((0, 0, 0))
+
+    disco = pygame.image.load('./sprites/DARKNESS.png').convert()
+    disco.set_colorkey((0, 0, 0))
+    disco = pygame.transform.scale(disco, (64, 64))
+
+    cerveceria = pygame.image.load('./sprites/barCERVECITA.png').convert()
+    cerveceria.set_colorkey((0, 0, 0))
+    cerveceria = pygame.transform.scale(cerveceria, (64, 64))
+
+    bar = pygame.image.load('./sprites/PASIONBAR.png').convert()
+    bar.set_colorkey((0, 0, 0))
+    bar = pygame.transform.scale(bar, (64, 64))
+
+    cafe = pygame.image.load('./sprites/local.png').convert()
+    cafe.set_colorkey((0, 0, 0))
+    cafe = pygame.transform.scale(cafe, (64, 64))
+
     background_surface = pygame.Surface(screen.get_size())
     background_surface.fill((38, 18, 79))
     screen.blit(background_surface, (0, 0))
@@ -122,10 +111,10 @@ def startScreen():
     screen.blit(button_text2, text_rect_button2)
     screen.blit(button_text3, text_rect_button3)
     screen.blit(button_text4, text_rect_button4)
-    screen.blit(places[0][0],(400,300))
-    screen.blit(places[1][0],(400,400))
-    screen.blit(places[2][0],(400,500))
-    screen.blit(places[4][0],(400,600))
+    screen.blit(cafe,(400,300))
+    screen.blit(bar,(400,400))
+    screen.blit(cerveceria,(400,500))
+    screen.blit(disco,(400,600))
 
     pygame.display.flip()
 
@@ -139,33 +128,110 @@ def startScreen():
                 mouse_pos = event.pos
                 if button.collidepoint(mouse_pos):
                     startNode = g.searchNODE(10,50)
-                    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
-                    print(javierFinalList)
-                    print(AndreinaFinalList)
-                    return javierFinalList, AndreinaFinalList, javierWaits, timeToWait
+                    waiting_for_click = False
                 elif button1.collidepoint(mouse_pos):
                     startNode = g.searchNODE(11,54)
-                    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
-                    print(javierFinalList)
-                    print(AndreinaFinalList)
-                    return javierFinalList, AndreinaFinalList, javierWaits, timeToWait
+                    waiting_for_click = False
                 elif button2.collidepoint(mouse_pos):
                     startNode = g.searchNODE(12,50)
-                    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
-                    print(javierFinalList)
-                    print(AndreinaFinalList)
-                    return javierFinalList, AndreinaFinalList, javierWaits, timeToWait
+                    waiting_for_click = False
                 elif button3.collidepoint(mouse_pos):
                     startNode = g.searchNODE(14,50)
-                    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
-                    print(javierFinalList)
-                    print(AndreinaFinalList)
-                    return javierFinalList, AndreinaFinalList, javierWaits, timeToWait
-                waiting_for_click = False
-        pygame.time.delay(10)
+                    waiting_for_click = False
+        
+        #pygame.time.delay(10)
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
+    print(javierFinalList)
+    print(AndreinaFinalList)
+    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait)
+
+def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait):
+    screen, javier, andreina, places, roads, backgrd = gui_init()
+
+    javPos = [128, 128]
+    andPos = [256, 384]
+
+    clock = 0
+
+    javierCurrentPath = 0
+    andreinaCurrentPath = 0
+
+    javierStepsLeft = 0
+    andreinaStepsLeft = 0
+
+    javierVelocity = []
+    andreinaVelocity = []
+
+    javierMoving = False
+    andreinaMoving = False
+
+    if javierWaits:
+        andreinaMoving = True
+    else:
+        javierMoving = True
+
+    running = True
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+        
+        for m in backgrd:
+            screen.blit(m[0], (m[1], m[2]))
+
+        for p in places:
+            screen.blit(p[0], (p[1], p[2]))
+
+        for r in roads:
+            screen.blit(r[0], (r[1], r[2]))
+
+        if clock == timeToWait:
+            andreinaMoving = True
+            javierMoving = True
+
+        if javierMoving:
+            if javierStepsLeft == 0:
+                javierStepsLeft = javierFinalList[javierCurrentPath]['costo']
+                javierVelocity = javierFinalList[javierCurrentPath]['direction']
+
+            if javierVelocity[0] != 0:
+                javPos[0] += 128/(javierVelocity[0]*javierFinalList[javierCurrentPath]['costo'])
+            else:
+                javPos[1] += 128/(javierVelocity[1]*javierFinalList[javierCurrentPath]['costo'])
+            
+            javierStepsLeft -= 1
+
+            if javierStepsLeft == 0 and javierCurrentPath < len(javierFinalList)-1:
+                javierCurrentPath += 1
+            elif javierStepsLeft == 0 and javierCurrentPath == len(javierFinalList)-1:
+                javierMoving = False
+
+        if andreinaMoving:
+            if andreinaStepsLeft == 0:
+                andreinaStepsLeft = AndreinaFinalList[andreinaCurrentPath]['costo']
+                andreinaVelocity = AndreinaFinalList[andreinaCurrentPath]['direction']
+
+            if andreinaVelocity[0] != 0:
+                andPos[0] += 128/(andreinaVelocity[0]*AndreinaFinalList[andreinaCurrentPath]['costo'])
+            else:
+                andPos[1] += 128/(andreinaVelocity[1]*AndreinaFinalList[andreinaCurrentPath]['costo'])
+            
+            andreinaStepsLeft -= 1
+
+            if andreinaStepsLeft == 0 and andreinaCurrentPath < len(AndreinaFinalList)-1:
+                andreinaCurrentPath += 1
+            elif andreinaStepsLeft == 0 and andreinaCurrentPath == len(AndreinaFinalList)-1:
+                andreinaMoving = False
+        
+        screen.blit(javier, (javPos[0], javPos[1]))
+        screen.blit(andreina, (andPos[0], andPos[1]))
+        pygame.display.update()
+        clock += 1
+        pygame.time.delay(500)
 
 def gui_init():
-    screen = pygame.display.set_mode((780, 700))
+    screen = pygame.display.set_mode((960, 960))
     screen.fill((0, 0, 0))
 
     javier = pygame.image.load('./sprites/javier1.png').convert()

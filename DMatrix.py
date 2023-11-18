@@ -58,13 +58,13 @@ class DMatrix:
                             secondCll=int(secondPiece.replace("Cll", ""))
                     direction="none"
                     if firstCr < secondCr:
-                        direction="left"
+                        direction=[-1, 0]
                     elif firstCr > secondCr:
-                        direction="right"
+                        direction=[1, 0]
                     elif firstCll < secondCll:
-                        direction="up"
+                        direction=[0, -1]
                     elif firstCll > secondCll:
-                        direction="down"
+                        direction=[0, 1]
 
                 if  self.partOfPath[i] == True:
                     print(f'Nodo: {self.nodesIds[i]} costoDesdeOrigen: {self.costFromOrigin[i]} Sucesor: {self.predecesors[i]}')
