@@ -295,10 +295,10 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
 
             if javierVelocity[0] != 0:
                 javPos[0] += 128/(javierVelocity[0]*javierFinalList[javierCurrentPath]['costo'])
-                pathJavier.append(pygame.Rect(javPos[0], javPos[1]+32, 32, 5))
+                pathJavier.append(pygame.Rect(javPos[0]+10, javPos[1]+28, 32, 5))
             else:
                 javPos[1] += 128/(javierVelocity[1]*javierFinalList[javierCurrentPath]['costo'])
-                pathJavier.append(pygame.Rect(javPos[0]+24, javPos[1]+10, 5, 32))
+                pathJavier.append(pygame.Rect(javPos[0]+30, javPos[1]+9, 5, 32))
             
             javierStepsLeft -= 1
 
@@ -314,10 +314,10 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
 
             if andreinaVelocity[0] != 0:
                 andPos[0] += 128/(andreinaVelocity[0]*AndreinaFinalList[andreinaCurrentPath]['costo'])
-                pathAndreina.append(pygame.Rect(andPos[0]+32, andPos[1]+24, 32, 5))
+                pathAndreina.append(pygame.Rect(andPos[0]+17, andPos[1]+28, 32, 5))
             else:
                 andPos[1] += 128/(andreinaVelocity[1]*AndreinaFinalList[andreinaCurrentPath]['costo'])
-                pathAndreina.append(pygame.Rect(andPos[0]+32, andPos[1], 5, 32))
+                pathAndreina.append(pygame.Rect(andPos[0]+30, andPos[1]+15, 5, 32))
             
             andreinaStepsLeft -= 1
 
@@ -329,7 +329,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
         for p in pathJavier:
             pygame.draw.rect(screen, (0, 128, 255), p)
         for p in pathAndreina:
-            pygame.draw.rect(screen, (203, 50, 52), p)
+            pygame.draw.rect(screen, (200, 0, 0), p)
         
         if javierMoving == True or andreinaMoving == True:
             if secondStep == True:
