@@ -243,6 +243,8 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
     newClock=pygame.time.Clock()
 
     clock = 0
+    costoTotal = 0
+    costoTotalAndreina = 0
 
     pathJavier = []
     pathAndreina = []
@@ -293,6 +295,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             if javierStepsLeft == 0:
                 javierStepsLeft = javierFinalList[javierCurrentPath]['costo']
                 javierVelocity = javierFinalList[javierCurrentPath]['direction']
+                costoTotal += javierFinalList[javierCurrentPath]['costo']
 
             if javierVelocity[0] != 0:
                 javPos[0] += 128/(javierVelocity[0]*javierFinalList[javierCurrentPath]['costo'])
@@ -312,6 +315,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             if andreinaStepsLeft == 0:
                 andreinaStepsLeft = AndreinaFinalList[andreinaCurrentPath]['costo']
                 andreinaVelocity = AndreinaFinalList[andreinaCurrentPath]['direction']
+                costoTotalAndreina += AndreinaFinalList[andreinaCurrentPath]['costo']
 
             if andreinaVelocity[0] != 0:
                 andPos[0] += 128/(andreinaVelocity[0]*AndreinaFinalList[andreinaCurrentPath]['costo'])
@@ -367,6 +371,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
                 textInterface2_font = pygame.font.Font(None, 40)
                 textInterface2 = textInterface2_font.render(f'Javier debe esperar', True, (255, 255, 255))
                 screen.blit(textInterface2, (820,150))
+                
 
                 textInterface4 = textInterface2_font.render(f'en su casita', True, (255, 255, 255))
                 screen.blit(textInterface4, (870,200))
@@ -385,6 +390,19 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render(f'{timeToWait} minutos', True, (255, 255, 255))
             screen.blit(textInterface1, (885,350))
+
+            textInterface1_font = pygame.font.Font(None, 40)
+            textInterface1 = textInterface1_font.render('Tiempo de recorrido:', True, (255, 255, 255))
+            screen.blit(textInterface1, (825,450))
+
+            if javierWaits:
+                textInterface1_font = pygame.font.Font(None, 40)
+                textInterface1 = textInterface1_font.render(f'{costoTotalAndreina} minutos', True, (255, 255, 255))
+                screen.blit(textInterface1, (885,500))
+            else:
+                textInterface1_font = pygame.font.Font(None, 40)
+                textInterface1 = textInterface1_font.render(f'{costoTotal} minutos', True, (255, 255, 255))
+                screen.blit(textInterface1, (885,500))
 
             pygame.display.flip()
 
