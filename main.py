@@ -389,10 +389,20 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             pygame.display.flip()
 
         else:
+            image_path = './sprites/gato.png'
+            image = pygame.image.load(image_path)
+            image = pygame.transform.scale(image, (300, 200))
+
             pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(790, 150, 340, 550))
             textInterface7_font = pygame.font.Font(None, 40)
             textInterface7 = textInterface7_font.render('CALCULANDO', True, (255, 255, 255))
             screen.blit(textInterface7, (865,200))
+
+            textInterface7_font = pygame.font.Font(None, 40)
+            textInterface7 = textInterface7_font.render('ESPERE', True, (255, 255, 255))
+            screen.blit(textInterface7, (900,550))
+
+            screen.blit(image, (810, 300))
             pygame.display.flip()
 
 
