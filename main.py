@@ -25,7 +25,7 @@ def startScreen():
 
     print(otherCarrera)
 
-    screen = pygame.display.set_mode((780, 850))
+    screen = pygame.display.set_mode((800, 850))
     screen.fill((0, 0, 0))
 
     disco = pygame.image.load('./sprites/DARKNESS.png').convert()
@@ -237,8 +237,8 @@ def startScreen():
 def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait):
     screen, javier, andreina, places, roads, backgrd, javier2, javier3,andreina2,andreina3,secondStep= gui_init()
 
-    javPos = [128, 128]
-    andPos = [256, 384]
+    javPos = [128, 128+100]
+    andPos = [256, 384+100]
 
     newClock=pygame.time.Clock()
 
@@ -277,15 +277,15 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
                 if button.collidepoint(mouse_pos):
                         startScreen()
                         running = False
-                        
+
         for m in backgrd:
-            screen.blit(m[0], (m[1], m[2]))
+            screen.blit(m[0], (m[1], m[2]-28))
 
         for p in places:
-            screen.blit(p[0], (p[1], p[2]))
+            screen.blit(p[0], (p[1], p[2]+100))
 
         for r in roads:
-            screen.blit(r[0], (r[1], r[2]))
+            screen.blit(r[0], (r[1], r[2]-28))
 
         if clock == timeToWait:
             andreinaMoving = True
@@ -523,6 +523,7 @@ def gui_init():
                 block = knownPlaces[knownPlacesNames.index(f'Cr{cr}/Cll{cll}')]
                 placesLocations.append((block, x+64, y-64))
             roads.append((inter, x, y))
+            roads.append((inter, x, y+128))
             
             if cr not in brokenCarreras:
                 roads.append((roadV, x, y+64))
@@ -531,6 +532,7 @@ def gui_init():
 
             if cll != commercialCalle:
                 roads.append((roadH, x+64, y))
+                roads.append((roadH, x+64, y+128))
             else:
                 roads.append((cRoad, x+64, y))
 
