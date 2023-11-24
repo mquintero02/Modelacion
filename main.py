@@ -94,6 +94,7 @@ def startScreen():
     text12 = text12_font.render(f'{otherCalle}', True, (255, 255, 255))
     text_rect12 = text.get_rect(center=(815, 790))
 
+
     gray_rect = pygame.Rect(392, 292, 78, 78)
     gray_color = (185, 197, 194)
     gray_rect2 = pygame.Rect(392, 392, 78, 78)
@@ -359,10 +360,46 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
         text_rect_button = button_text.get_rect(center=button.center)
         screen.blit(button_text, text_rect_button)
 
+        if javierMoving is False and andreinaMoving is False:
+            pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(790, 100, 340, 550))
+
+            if javierWaits:
+                textInterface2_font = pygame.font.Font(None, 40)
+                textInterface2 = textInterface2_font.render(f'Javier debe esperar', True, (255, 255, 255))
+                screen.blit(textInterface2, (820,150))
+
+                textInterface4 = textInterface2_font.render(f'en su casita', True, (255, 255, 255))
+                screen.blit(textInterface4, (870,200))
+            else:
+                textInterface3_font = pygame.font.Font(None, 40)
+                textInterface3 = textInterface3_font.render(f'Andreina debe esperar', True, (255, 255, 255))
+                screen.blit(textInterface3, (800,150))
+
+                textInterface4 = textInterface3_font.render(f'en su casita', True, (255, 255, 255))
+                screen.blit(textInterface4, (870,200))
+
+            textInterface1_font = pygame.font.Font(None, 40)
+            textInterface1 = textInterface1_font.render(f'Tiempo de espera:', True, (255, 255, 255))
+            screen.blit(textInterface1, (835,300))
+
+            textInterface1_font = pygame.font.Font(None, 40)
+            textInterface1 = textInterface1_font.render(f'{timeToWait} minutos', True, (255, 255, 255))
+            screen.blit(textInterface1, (885,350))
+
+            pygame.display.flip()
+
+        else:
+            pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(790, 150, 340, 550))
+            textInterface7_font = pygame.font.Font(None, 40)
+            textInterface7 = textInterface7_font.render('CALCULANDO', True, (255, 255, 255))
+            screen.blit(textInterface7, (865,200))
+            pygame.display.flip()
+
+
 
 
 def gui_init():
-    screen = pygame.display.set_mode((960, 960))
+    screen = pygame.display.set_mode((1150, 960))
     screen.fill((0, 0, 0))
     secondStep=True
 
