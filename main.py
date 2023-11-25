@@ -534,7 +534,7 @@ def gui_init():
                 roads.append((roadH, x+64, y))
                 roads.append((roadH, x+64, y+128))
             else:
-                roads.append((cRoad, x+64, y))
+                roads.append((cRoad, x+64, y+128))
 
     return screen, javier, andreina, placesLocations, roads, backgrd, javier2,javier3,andreina2,andreina3,secondStep
 
