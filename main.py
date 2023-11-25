@@ -25,7 +25,7 @@ def startScreen():
 
     print(otherCarrera)
 
-    screen = pygame.display.set_mode((800, 850))
+    screen = pygame.display.set_mode((850, 850))
     screen.fill((0, 0, 0))
 
     disco = pygame.image.load('./sprites/DARKNESS.png').convert()
@@ -365,44 +365,44 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
         screen.blit(button_text, text_rect_button)
 
         if javierMoving is False and andreinaMoving is False:
-            pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(790, 100, 340, 550))
+            pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(900, 100, 340, 550))
 
             if javierWaits:
                 textInterface2_font = pygame.font.Font(None, 40)
                 textInterface2 = textInterface2_font.render(f'Javier debe esperar', True, (255, 255, 255))
-                screen.blit(textInterface2, (820,150))
+                screen.blit(textInterface2, (930,150))
                 
 
                 textInterface4 = textInterface2_font.render(f'en su casita', True, (255, 255, 255))
-                screen.blit(textInterface4, (870,200))
+                screen.blit(textInterface4, (980,200))
             else:
                 textInterface3_font = pygame.font.Font(None, 40)
                 textInterface3 = textInterface3_font.render(f'Andreina debe esperar', True, (255, 255, 255))
-                screen.blit(textInterface3, (800,150))
+                screen.blit(textInterface3, (910,150))
 
                 textInterface4 = textInterface3_font.render(f'en su casita', True, (255, 255, 255))
-                screen.blit(textInterface4, (870,200))
+                screen.blit(textInterface4, (980,200))
 
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render(f'Tiempo de espera:', True, (255, 255, 255))
-            screen.blit(textInterface1, (835,300))
+            screen.blit(textInterface1, (945,300))
 
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render(f'{timeToWait} minutos', True, (255, 255, 255))
-            screen.blit(textInterface1, (885,350))
+            screen.blit(textInterface1, (995,350))
 
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render('Tiempo de recorrido:', True, (255, 255, 255))
-            screen.blit(textInterface1, (825,450))
+            screen.blit(textInterface1, (935,450))
 
             if javierWaits:
                 textInterface1_font = pygame.font.Font(None, 40)
                 textInterface1 = textInterface1_font.render(f'{costoTotalAndreina} minutos', True, (255, 255, 255))
-                screen.blit(textInterface1, (885,500))
+                screen.blit(textInterface1, (995,500))
             else:
                 textInterface1_font = pygame.font.Font(None, 40)
                 textInterface1 = textInterface1_font.render(f'{costoTotal} minutos', True, (255, 255, 255))
-                screen.blit(textInterface1, (885,500))
+                screen.blit(textInterface1, (995,500))
 
             pygame.display.flip()
 
@@ -411,23 +411,41 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             image = pygame.image.load(image_path)
             image = pygame.transform.scale(image, (300, 200))
 
-            pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(790, 150, 340, 550))
+            pygame.draw.rect(screen, (0, 20, 20), pygame.Rect(900, 150, 340, 550))
             textInterface7_font = pygame.font.Font(None, 40)
             textInterface7 = textInterface7_font.render('CALCULANDO', True, (255, 255, 255))
-            screen.blit(textInterface7, (865,200))
+            screen.blit(textInterface7, (975,200))
 
             textInterface7_font = pygame.font.Font(None, 40)
             textInterface7 = textInterface7_font.render('ESPERE', True, (255, 255, 255))
-            screen.blit(textInterface7, (900,550))
+            screen.blit(textInterface7, (1010,550))
 
-            screen.blit(image, (810, 300))
+            screen.blit(image, (920, 300))
             pygame.display.flip()
+        
+        xy=15
+        distance=18
+        while xy != 9:
+            textCrr = textInterface7_font.render(f'{xy}', True, (191, 255, 0))
+            screen.blit(textCrr, (distance,815))
+            distance+=128
+            xy-=1
+        textCrr = textInterface7_font.render(f'Carreras', True, (191, 255, 0))
+        textCll = textInterface7_font.render(f'Calles', True, (233,189,21))
+        screen.blit(textCrr, (distance-10,813))
+        screen.blit(textCll, (780,30))
 
-
+        yz=55
+        distance2=119
+        while yz != 49:
+            textCrr = textInterface7_font.render(f'{yz}', True, (233,189,21))
+            screen.blit(textCrr, (780,distance2))
+            distance2+=128
+            yz-=1
 
 
 def gui_init():
-    screen = pygame.display.set_mode((1150, 960))
+    screen = pygame.display.set_mode((1300, 1000))
     screen.fill((0, 0, 0))
     secondStep=True
 
