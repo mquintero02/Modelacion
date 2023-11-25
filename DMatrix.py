@@ -91,17 +91,17 @@ class DMatrix:
         return nodeUnvisitedExist
     
     def identifyPath(self, startNode, endNode, graph):
-        stringPath = ""
+        pathArray = []
         currentNode = startNode
         while currentNode != endNode:
             currentIndex = graph.searchNodeIndex(currentNode.carrera, currentNode.calle)
             self.partOfPath[currentIndex] = True
-            stringPath += (f'{currentNode.name}->')
+            pathArray.append(currentNode.name)
             currentNode = graph.searchNodeByName(self.predecesors[currentIndex])
         currentIndex = graph.searchNodeIndex(endNode.carrera, endNode.calle)
         self.partOfPath[currentIndex] = True
-        stringPath += (f'{currentNode.name}')
-        return stringPath
+        pathArray.append(currentNode.name)
+        return pathArray
 
 
         

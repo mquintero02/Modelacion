@@ -89,10 +89,9 @@ class Graph:
 
         JavierDMatrix, AndreinaDMatrix, timeToWait, javierWaits = self.chooseFinalPath(resultMatrixJFree,resultMatrixANotFree,resultMatrixAFree,resultMatrixJNotFree)
         print("\nJavier")
-        JavierStringPath = JavierDMatrix.identifyPath(javierNode,specialNode, self)
-        AndreinaStringPath = AndreinaDMatrix.identifyPath(andreinaNode,specialNode, self)
-        print(JavierStringPath, AndreinaStringPath)
-
+        JavierPath = JavierDMatrix.identifyPath(javierNode,specialNode, self)
+        AndreinaPath = AndreinaDMatrix.identifyPath(andreinaNode,specialNode, self)
+       
         javierFinalList = JavierDMatrix.printBasic()
         print("\n Andreina")
         AndreinaFinalList = AndreinaDMatrix.printBasic()
@@ -100,7 +99,7 @@ class Graph:
         print(f'javier espera: {javierWaits}')
        
 
-        return javierFinalList, AndreinaFinalList, javierWaits, timeToWait, JavierStringPath, AndreinaStringPath
+        return javierFinalList, AndreinaFinalList, javierWaits, timeToWait, JavierPath, AndreinaPath
 
     def dijkstra(self, tList, startNode, matrixToAvoid):
         currentNode = startNode

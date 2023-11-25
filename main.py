@@ -229,12 +229,12 @@ def startScreen():
         pygame.display.update()
 
         #pygame.time.delay(10)
-    javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierStringPath, AndreinaStringPath = g.findCouplePath(startNode)
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath = g.findCouplePath(startNode)
     print(javierFinalList)
     print(AndreinaFinalList)
-    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierStringPath, AndreinaStringPath)
+    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath)
 
-def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierStringPath, AndreinaStringPath):
+def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath):
     screen, javier, andreina, places, roads, backgrd, javier2, javier3,andreina2,andreina3,secondStep= gui_init()
 
     javPos = [128, 128+100]
@@ -404,13 +404,28 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
                 textInterface1 = textInterface1_font.render(f'{costoTotal} minutos', True, (255, 255, 255))
                 screen.blit(textInterface1, (995,500))
 
+            #ruta de javier
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render('Ruta de Javier', True, (255, 255, 255))
-            screen.blit(textInterface1, (885,600))
+            screen.blit(textInterface1, (1200,550))
 
-            textInterface1_font = pygame.font.Font(None, 30)
-            textInterface1 = textInterface1_font.render(f'{javierStringPath}', True, (255, 255, 255))
-            screen.blit(textInterface1, (800,620))
+           
+            for i, place in enumerate(javierPath):
+                textInterface1_font = pygame.font.Font(None, 25)
+                textInterface1 = textInterface1_font.render(f'{i}) {place}', True, (255, 255, 255))
+                screen.blit(textInterface1, (1200,585+(i*22)))
+            #ruta de andreina
+            textInterface1_font = pygame.font.Font(None, 40)
+            textInterface1 = textInterface1_font.render('Ruta de Andreina', True, (255, 255, 255))
+            screen.blit(textInterface1, (930,550))
+
+           
+            for i, place in enumerate(andreinaPath):
+                textInterface1_font = pygame.font.Font(None, 25)
+                textInterface1 = textInterface1_font.render(f'{i}) {place}', True, (255, 255, 255))
+                screen.blit(textInterface1, (930,585+(i*22)))
+
+           
 
          
      
