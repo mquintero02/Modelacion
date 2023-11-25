@@ -356,7 +356,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
         clock += 1
         newClock.tick(10)
 
-        button = pygame.Rect(860, 900, 100, 60)
+        button = pygame.Rect(1350, 200, 100, 60)
         pygame.draw.rect(screen, (0, 128, 255), button)
 
         text2_font = pygame.font.Font(None, 32)
@@ -404,26 +404,28 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
                 textInterface1 = textInterface1_font.render(f'{costoTotal} minutos', True, (255, 255, 255))
                 screen.blit(textInterface1, (995,500))
 
+            pygame.draw.rect(screen, (100, 80, 20), pygame.Rect(930, 560, 560, 280))
             #ruta de javier
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render('Ruta de Javier', True, (255, 255, 255))
-            screen.blit(textInterface1, (1200,550))
+            screen.blit(textInterface1, (1230,580))
 
            
             for i, place in enumerate(javierPath):
                 textInterface1_font = pygame.font.Font(None, 25)
                 textInterface1 = textInterface1_font.render(f'{i}) {place}', True, (255, 255, 255))
-                screen.blit(textInterface1, (1200,585+(i*22)))
+                screen.blit(textInterface1, (1260,620+(i*22)))
             #ruta de andreina
             textInterface1_font = pygame.font.Font(None, 40)
             textInterface1 = textInterface1_font.render('Ruta de Andreina', True, (255, 255, 255))
-            screen.blit(textInterface1, (930,550))
+            screen.blit(textInterface1, (950,580))
 
            
             for i, place in enumerate(andreinaPath):
                 textInterface1_font = pygame.font.Font(None, 25)
                 textInterface1 = textInterface1_font.render(f'{i}) {place}', True, (255, 255, 255))
-                screen.blit(textInterface1, (930,585+(i*22)))
+                screen.blit(textInterface1, (970,620+(i*22)))
+                
 
            
 
@@ -470,7 +472,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
 
 
 def gui_init():
-    screen = pygame.display.set_mode((1300, 1000))
+    screen = pygame.display.set_mode((1550, 1000))
     screen.fill((0, 0, 0))
     secondStep=True
 
