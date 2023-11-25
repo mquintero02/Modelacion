@@ -2,10 +2,13 @@ from Graph import Graph
 from BaseNode import BaseNode
 from pygame import mixer
 
-import pygame, sys
+import pygame, sys, os
 from pygame.locals import *
 
 def main():
+    x = 0
+    y = 20
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
     pygame.init()
     # print(javierWaits)
     # print(timeToWait)
