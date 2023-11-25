@@ -229,12 +229,12 @@ def startScreen():
         pygame.display.update()
 
         #pygame.time.delay(10)
-    javierFinalList, AndreinaFinalList, javierWaits, timeToWait = g.findCouplePath(startNode)
+    javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierStringPath, AndreinaStringPath = g.findCouplePath(startNode)
     print(javierFinalList)
     print(AndreinaFinalList)
-    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait)
+    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierStringPath, AndreinaStringPath)
 
-def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait):
+def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierStringPath, AndreinaStringPath):
     screen, javier, andreina, places, roads, backgrd, javier2, javier3,andreina2,andreina3,secondStep= gui_init()
 
     javPos = [128, 128+100]
@@ -404,6 +404,16 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
                 textInterface1 = textInterface1_font.render(f'{costoTotal} minutos', True, (255, 255, 255))
                 screen.blit(textInterface1, (885,500))
 
+            textInterface1_font = pygame.font.Font(None, 40)
+            textInterface1 = textInterface1_font.render('Ruta de Javier', True, (255, 255, 255))
+            screen.blit(textInterface1, (885,600))
+
+            textInterface1_font = pygame.font.Font(None, 30)
+            textInterface1 = textInterface1_font.render(f'{javierStringPath}', True, (255, 255, 255))
+            screen.blit(textInterface1, (800,620))
+
+         
+     
             pygame.display.flip()
 
         else:
