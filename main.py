@@ -18,7 +18,7 @@ def main():
     mixer.music.set_volume(0.5)
     mixer.music.play(-1)
 
-    javierFinalList, AndreinaFinalList, javierWaits, timeToWait= GameLogic.startScreen()
+    GameLogic.startScreen()
     #ESTO ES PARA HACER LA INTERFAZ Y ACTUALIZAR LAS POSICIONES
 
 main()
