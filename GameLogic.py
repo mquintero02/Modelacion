@@ -13,7 +13,7 @@ def startScreen():
 
     print(otherCarrera)
 
-    screen = pygame.display.set_mode((850, 850))
+    screen = pygame.display.set_mode((850, 950))
     screen.fill((0, 0, 0))
 
     disco = pygame.image.load('./sprites/DARKNESS.png').convert()
@@ -64,6 +64,10 @@ def startScreen():
     text7 = text7_font.render('Otro lugar', True, (255, 255, 255))
     text_rect7 = text.get_rect(center=(350, 800))
 
+    textVelocity = pygame.font.Font(None, 32)
+    textVelocity = textVelocity.render('Velocidad', True, (255, 255, 255))
+    screen.blit(textVelocity,(45,870))
+
     text8_font = pygame.font.Font(None, 32)
     text8 = text8_font.render('Carrera', True, (255, 255, 255))
     text_rect8 = text.get_rect(center=(600, 830))
@@ -73,6 +77,10 @@ def startScreen():
     text_rect9 = text.get_rect(center=(800, 830))
 
     text10_font = pygame.font.Font(None, 28)
+    textVel = pygame.font.Font(None, 28)
+    textVel2 = pygame.font.Font(None, 28)
+    textVel3 = pygame.font.Font(None, 28)
+    textVel4 = pygame.font.Font(None, 28)
 
     text11_font = pygame.font.Font(None, 32)
     text11 = text11_font.render(f'{otherCarrera}', True, (255, 255, 255))
@@ -116,6 +124,18 @@ def startScreen():
     button8 = pygame.Rect(670, 770, 100, 40)
     pygame.draw.rect(screen, (0, 128, 255), button8)
 
+    button9 = pygame.Rect(250, 865, 100, 40)
+    pygame.draw.rect(screen, (0, 128, 255), button9)
+
+    button10 = pygame.Rect(390, 865, 100, 40)
+    pygame.draw.rect(screen, (0, 128, 255), button10)
+
+    button11 = pygame.Rect(530, 865, 100, 40)
+    pygame.draw.rect(screen, (0, 128, 255), button11)
+
+    button12 = pygame.Rect(670, 865, 100, 40)
+    pygame.draw.rect(screen, (0, 128, 255), button12)
+
 
     button_text = text2_font.render('Iniciar', True, (255, 255, 255))
     text_rect_button = button_text.get_rect(center=button.center)
@@ -136,6 +156,14 @@ def startScreen():
     button_text9 = text10_font.render('Iniciar', True, (255, 255, 255))
     text_rect_button9 = button_text4.get_rect(center=button8.center)
 
+    button_text10 = textVel.render('Rapido', True, (255, 255, 255))
+    text_rect_button10 = button_text10.get_rect(center=button9.center)
+    button_text11 = textVel2.render('Medio', True, (255, 255, 255))
+    text_rect_button11 = button_text11.get_rect(center=button10.center)
+    button_text12 = textVel3.render('Lento', True, (255, 255, 255))
+    text_rect_button12 = button_text12.get_rect(center=button11.center)
+    button_text13 = textVel4.render('None', True, (255, 255, 255))
+    text_rect_button13 = button_text13.get_rect(center=button12.center)
 
     pygame.draw.rect(screen, gray_color, gray_rect)
     pygame.draw.rect(screen, gray_color, gray_rect2)
@@ -161,10 +189,17 @@ def startScreen():
     screen.blit(button_text7, text_rect_button7)
     screen.blit(button_text8, text_rect_button8)
     screen.blit(button_text9, text_rect_button9)
+    screen.blit(button_text10, text_rect_button10)
+    screen.blit(button_text11, text_rect_button11)
+    screen.blit(button_text12, text_rect_button12)
+    screen.blit(button_text13, text_rect_button13)
+
     screen.blit(cafe,(400,300))
     screen.blit(bar,(400,400))
     screen.blit(cerveceria,(400,500))
     screen.blit(disco,(400,600))
+
+    VelocityFrame = 7
 
     pygame.display.flip()
 
@@ -200,6 +235,66 @@ def startScreen():
                 elif button6.collidepoint(mouse_pos):
                     if otherCalle < 55:
                         otherCalle += 1
+                elif button9.collidepoint(mouse_pos):
+                    VelocityFrame= 17
+                    button9 = pygame.Rect(250, 865, 100, 40)
+                    pygame.draw.rect(screen, (139, 0, 0), button9)
+                    button10 = pygame.Rect(390, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button10)
+                    button11 = pygame.Rect(530, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button11)
+                    button12 = pygame.Rect(670, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button12)
+                    screen.blit(button_text10, text_rect_button10)
+                    screen.blit(button_text11, text_rect_button11)
+                    screen.blit(button_text12, text_rect_button12)
+                    screen.blit(button_text13, text_rect_button13)
+
+                elif button10.collidepoint(mouse_pos):
+                    VelocityFrame= 7
+                    button9 = pygame.Rect(250, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button9)
+                    button10 = pygame.Rect(390, 865, 100, 40)
+                    pygame.draw.rect(screen, (139, 0, 0), button10)
+                    button11 = pygame.Rect(530, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button11)
+                    button12 = pygame.Rect(670, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button12)
+                    screen.blit(button_text10, text_rect_button10)
+                    screen.blit(button_text11, text_rect_button11)
+                    screen.blit(button_text12, text_rect_button12)
+                    screen.blit(button_text13, text_rect_button13)
+
+                elif button11.collidepoint(mouse_pos):
+                    VelocityFrame= 4
+                    button9 = pygame.Rect(250, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button9)
+                    button10 = pygame.Rect(390, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button10)
+                    button11 = pygame.Rect(530, 865, 100, 40)
+                    pygame.draw.rect(screen, (139, 0, 0), button11)
+                    button12 = pygame.Rect(670, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button12)
+                    screen.blit(button_text10, text_rect_button10)
+                    screen.blit(button_text11, text_rect_button11)
+                    screen.blit(button_text12, text_rect_button12)
+                    screen.blit(button_text13, text_rect_button13)
+
+                elif button12.collidepoint(mouse_pos):
+                    VelocityFrame= 99999999
+                    button9 = pygame.Rect(250, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button9)
+                    button10 = pygame.Rect(390, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button10)
+                    button11 = pygame.Rect(530, 865, 100, 40)
+                    pygame.draw.rect(screen, (0, 128, 255), button11)
+                    button12 = pygame.Rect(670, 865, 100, 40)
+                    pygame.draw.rect(screen, (139, 0, 0), button12)
+                    screen.blit(button_text10, text_rect_button10)
+                    screen.blit(button_text11, text_rect_button11)
+                    screen.blit(button_text12, text_rect_button12)
+                    screen.blit(button_text13, text_rect_button13)
+                    
                 elif button8.collidepoint(mouse_pos):
                     if (otherCarrera == 14 and otherCalle == 54) or (otherCarrera == 13 and otherCalle == 52):
                         continue
@@ -220,9 +315,9 @@ def startScreen():
     javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath = g.findCouplePath(startNode)
     print(javierFinalList)
     print(AndreinaFinalList)
-    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath)
+    simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath,VelocityFrame)
 
-def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath):
+def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWait, javierPath, andreinaPath,VelocityFrame):
     screen, javier, andreina, places, roads, backgrd, javier2, javier3,andreina2,andreina3,secondStep= gui_init()
 
     javPos = [128, 128+100]
@@ -342,7 +437,7 @@ def simulation_screen(javierFinalList, AndreinaFinalList, javierWaits, timeToWai
             screen.blit(andreina, (andPos[0]+45, andPos[1]-40))
         pygame.display.update()
         clock += 1
-        newClock.tick(7)
+        newClock.tick(VelocityFrame)
 
         button = pygame.Rect(1325, 360, 100, 60)
         pygame.draw.rect(screen, (0, 128, 255), button)
